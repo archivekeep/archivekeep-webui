@@ -27,9 +27,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: [
-
-    ],
+    boot: [],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
@@ -57,16 +55,19 @@ module.exports = configure(function (/* ctx */) {
         node: 'node16'
       },
 
-      vueRouterMode: 'hash' // available values: 'hash', 'history'
+      vueRouterMode: 'history',
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      // publicPath: '/',
+      publicPath: (process.env.NODE_ENV === 'production' ? '__PUBLIC_PATH_PLACEHOLDER__' : '/'),
       // analyze: true,
-      // env: {},
+
+      env: {
+        API_BASE: (process.env.NODE_ENV === 'production' ? '__PUBLIC_PATH_PLACEHOLDER__' : '/')
+      }
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
@@ -83,8 +84,13 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      // https: true
-      open: true // opens browser window automatically
+      open: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:4202',
+          changeOrigin: true
+        }
+      }
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework

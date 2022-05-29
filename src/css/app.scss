@@ -1,1 +1,30 @@
 // app global css in SCSS form
+
+h1 {
+  font-size: 1.375rem !important;
+  margin-block-start: 0.25rem;
+  margin-block-end: 0.25rem;
+}
+
+h2 {
+  font-size: 1rem !important;
+  margin-block-start: 0.5rem;
+  margin-block-end: 0.1875rem;
+
+  color: rgba(0, 0, 0, 0.64)
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.5;
+}
+
+
+.page-content-container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  @media (max-width: $breakpoint-xs-max) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
